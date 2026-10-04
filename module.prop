@@ -1,0 +1,7 @@
+id=zero-jitter-ping
+name=ZeroJitter Ping Optimizer
+version=v1.2
+versionCode=120
+author=zaan
+description=Eliminate mobile data ping jitter & UDP desync stutters. Zero-drop buffer, TCP hot-start, radio lock, anti-stall network stack.
+updateJson=https://raw.githubusercontent.com/Alfnnnnyy/PingOptimizerForGame/main/update.json

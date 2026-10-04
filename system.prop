@@ -1,0 +1,11 @@
+# ZeroJitter - Cellular & Network Radio
+persist.vendor.radio.data_con_rprt=1
+persist.vendor.radio.power_saving=0
+persist.vendor.radio.add_power_save=0
+persist.vendor.radio.dynamic_sar=0
+persist.vendor.radio.snapshot_enabled=0
+ro.ril.fast.dormancy.rule=0
+
+# TCP & Socket Bufferbloat Mitigations
+net.tcp.default_init_rwnd=60
+net.ipv4.tcp_ecn=0

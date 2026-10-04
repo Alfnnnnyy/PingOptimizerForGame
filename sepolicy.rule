@@ -1,0 +1,4 @@
+allow ksu sysfs_net file { create write open getattr read setattr }
+allow ksu sysfs_net dir { search read open getattr }
+allow magisk sysfs_net file { create write open getattr read setattr }
+allow magisk sysfs_net dir { search read open getattr }

@@ -1,0 +1,41 @@
+name: Release Module
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Get version from module.prop
+        id: prop
+        run: |
+          VERSION=$(grep '^version=' module.prop | cut -d= -f2)
+          VERSION_CODE=$(grep '^versionCode=' module.prop | cut -d= -f2)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "code=$VERSION_CODE" >> $GITHUB_OUTPUT
+
+      - name: Package module zip
+        run: |
+          ZIP_NAME="ZeroJitter-PingOptimizer-${{ steps.prop.outputs.version }}.zip"
+          zip -r9 "$ZIP_NAME" module.prop post-fs-data.sh service.sh system.prop sepolicy.rule customize.sh
+          echo "zip_name=$ZIP_NAME" >> $GITHUB_ENV
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "ZeroJitter Ping Optimizer ${{ steps.prop.outputs.version }}"
+          tag_name: ${{ github.ref_name }}
+          body_path: changelog.md
+          files: ${{ env.zip_name }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
